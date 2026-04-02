@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import LigaSantafesinaStandings from "./LigaSantafesinaStandings.jsx";
+import LigaSantafesinaStandingsLight from "./LigaSantafesinaStandingsLight.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LigaSantafesinaStandings />
+    <LigaSantafesinaStandingsLight />
   </StrictMode>
 );
