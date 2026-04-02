@@ -36,6 +36,9 @@ const COLUMNS = [
   { key: "dg", label: "DG" },
 ];
 
+const nameToAbbr = Object.fromEntries(TEAMS.map((t) => [t.name, t.abbr]));
+function abbr(name) { return nameToAbbr[name] ?? name; }
+
 const C = {
   bg: "#f4f6fb",
   surface: "#ffffff",
@@ -68,13 +71,13 @@ function TeamDetail({ team }) {
       `}</style>
 
       {/* Match Cards */}
-      <div style={{
+      <div className="match-cards" style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         borderBottom: `1px solid ${C.border}`,
       }}>
         {/* Last Match */}
-        <div style={{
+        <div className="match-card-last" style={{
           padding: "16px 20px",
           borderRight: `1px solid ${C.border}`,
           background: C.surface,
@@ -92,7 +95,7 @@ function TeamDetail({ team }) {
           </div>
           <div style={{ color: C.textSoft, fontSize: "10px", marginBottom: "10px" }}>{team.lastMatch.date}</div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontSize: "12px", fontWeight: 500, color: C.text }}>
-            <span style={{ flex: 1, textAlign: "right", lineHeight: "1.3" }}>{team.lastMatch.home}</span>
+            <span style={{ flex: 1, textAlign: "right", lineHeight: "1.3" }}>{abbr(team.lastMatch.home)}</span>
             <span style={{
               background: C.greenLight,
               color: C.green,
@@ -107,7 +110,7 @@ function TeamDetail({ team }) {
             }}>
               {team.lastMatch.homeScore} - {team.lastMatch.awayScore}
             </span>
-            <span style={{ flex: 1, textAlign: "left", lineHeight: "1.3" }}>{team.lastMatch.away}</span>
+            <span style={{ flex: 1, textAlign: "left", lineHeight: "1.3" }}>{abbr(team.lastMatch.away)}</span>
           </div>
         </div>
 
@@ -126,7 +129,7 @@ function TeamDetail({ team }) {
           </div>
           <div style={{ color: C.textSoft, fontSize: "10px", marginBottom: "10px" }}>{team.nextMatch.date}</div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", fontSize: "12px", fontWeight: 500, color: C.text }}>
-            <span style={{ flex: 1, textAlign: "right", lineHeight: "1.3" }}>{team.nextMatch.home}</span>
+            <span style={{ flex: 1, textAlign: "right", lineHeight: "1.3" }}>{abbr(team.nextMatch.home)}</span>
             <span style={{
               background: C.orangeLight,
               color: C.orange,
@@ -136,7 +139,7 @@ function TeamDetail({ team }) {
               fontWeight: 600,
               fontFamily: "'Space Grotesk', sans-serif",
             }}>VS</span>
-            <span style={{ flex: 1, textAlign: "left", lineHeight: "1.3" }}>{team.nextMatch.away}</span>
+            <span style={{ flex: 1, textAlign: "left", lineHeight: "1.3" }}>{abbr(team.nextMatch.away)}</span>
           </div>
         </div>
       </div>
@@ -235,6 +238,8 @@ export default function LigaSantafesinaStandingsLight() {
           .team-cell { padding-left: 8px !important; }
           .team-logo { font-size: 14px !important; margin-right: 6px !important; }
           .table-card { margin: 12px 12px !important; }
+          .match-cards { grid-template-columns: 1fr !important; }
+          .match-card-last { border-right: none !important; border-bottom: 1px solid ${C.border} !important; }
         }
         @media (min-width: 601px) {
           .abbr-name { display: none !important; }
@@ -309,7 +314,7 @@ export default function LigaSantafesinaStandingsLight() {
                 color: C.textSoft, letterSpacing: "0.5px",
               }}>#</div>
               <div className="team-cell" style={{
-                flex: "1 1 auto", minWidth: "120px", padding: "11px 10px",
+                flex: "1 1 auto", minWidth: "100px", padding: "11px 10px",
                 fontSize: "10px", fontWeight: 600, color: C.textSoft,
                 letterSpacing: "0.5px", textTransform: "uppercase",
               }}>Equipo</div>
@@ -351,7 +356,7 @@ export default function LigaSantafesinaStandingsLight() {
 
                     {/* Team */}
                     <div className="team-cell" style={{
-                      flex: "1 1 auto", minWidth: "120px", padding: "13px 10px",
+                      flex: "1 1 auto", minWidth: "100px", padding: "13px 10px",
                       display: "flex", alignItems: "center",
                     }}>
                       <span className="team-logo" style={{
